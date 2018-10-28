@@ -3,7 +3,7 @@
  *
  * Version 1.0
  *
- * 10-27-18
+ * 10-27-2018
  *
  * Copyright (c) 2018 Lukas Batz
  *
@@ -23,18 +23,32 @@
  * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
-
 package org.wahlzeit.model;
 
 /**
- * A photo represents a user-provided (uploaded) photo.
+ * A Location represents a position, place or locality.
  */
 public class Location
 {
-    public Coordinate coordinate;
+	/**
+	 * public variables: Reference to coordinate object.
+	 */
+    public Coordinate coordinate = null;
     
+    /**
+     * Creation of a new Location object and initialization with a Coordinate object.
+     * @param coord
+     */
     public Location(Coordinate coord)
     {
         coordinate = coord;
+    }
+    /**
+     * Creation of a new Location object and initialization with double coordinate values.
+     * @param x, y, z double coordinate values.
+     */
+    public Location(double x, double y, double z)
+    {
+    	coordinate = new Coordinate(x, y, z);
     }
 }

@@ -41,6 +41,11 @@ import java.util.Map;
 public class Photo extends DataObject {
 
 	/**
+	 * (optional) Location where the represented Photo was taken.
+	 */
+	public Location location = null;
+	
+	/**
 	 *
 	 */
 	public static final String IMAGE = "image";
