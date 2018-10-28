@@ -105,7 +105,7 @@ public class LocationTest
 	public void testLocationUsingDoubleCoordinates()
 	{	
 		double x = 8.0;
-		double y = 1.17
+		double y = 1.17;
 		double z = 13.4;
 		Location loc = new Location(x, y, z);
 		Coordinate coord = loc.coordinate;
