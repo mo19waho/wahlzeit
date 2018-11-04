@@ -65,6 +65,17 @@ public class EmailAddressTest extends TestCase {
 	public void testEmptyEmailAddress() {
 		assertFalse(EmailAddress.EMPTY.isValid());
 	}
+	
+	//@Test
+	public void testEmailAddressIsEqual()
+	{
+		EmailAddress myEmailAddr = new EmailAddress("lukas.batz@studium.fau.de");
+		EmailAddress otherAddr   = new EmailAddress("lukas.batz@");
+		// obviously not intendet at implementation (?):
+		// assertTrue(myEmailAddr.isEqual(EmailAddress.getFromString("lukas.batz@studium.fau.de")));
+		assertTrue(myEmailAddr.isEqual(myEmailAddr));
+		assertFalse(myEmailAddr.isEqual(otherAddr));
+	}
 
 }
 
