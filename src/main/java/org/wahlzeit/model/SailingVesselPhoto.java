@@ -44,8 +44,15 @@ public class SailingVesselPhoto extends Photo
      */
     public SailingVesselPhoto()
     {
-        
+        super.Photo();
     }
     
+    /**
+     * @methodtype constructor
+     */
+    public SailingVesselPhoto(PhotoId myId)
+    {
+        super.Photo(myId);
+    }
     
 }
