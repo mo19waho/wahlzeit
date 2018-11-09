@@ -27,12 +27,11 @@
 public class SailingVesselPhotoManager extends PhotoManager
 {
 
-	  /**
-	   *
-	   */
-    @Override
-    public PhotoManager()
+   /**
+    *
+    */
+    public SailingVesselPhotoManager()
     {
-		    photoTagCollector = SailingVesselPhotoFactory.getInstance().createPhotoTagCollector();
+    	photoTagCollector = SailingVesselPhotoFactory.getInstance().createPhotoTagCollector();
     }
 }
