@@ -30,5 +30,34 @@
  */
 public class SailingVesselPhotoFactory extends PhotoFactory
 {
-    
+    /**
+     * Public singleton access method
+     */
+    public static synchronized SailingVesselPhotoFactory getInstance()
+    {
+		      if (instance == null)
+        {
+            log.config(LogBuilder.createSystemMessage().addAction("setting generic PhotoFactory").toString());
+		          super.setInstance(new SailingVesselPhotoFactory());
+        }
+        return super.instance;
+    }
+      
+    /**
+     * @methodtype factory
+     */
+     @Override
+     public Photo createPhoto()
+     {
+         return new SailingVesselPhoto();
+	    }
+
+     /**
+      * Creates a new sailing vessel photo with the specified id
+      */
+     @Override
+	    public Photo createPhoto(PhotoId id)
+     {
+		        return new SailingVesselPhoto(id);
+     }
 }
