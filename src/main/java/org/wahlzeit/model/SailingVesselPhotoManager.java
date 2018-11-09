@@ -26,12 +26,57 @@
 
 public class SailingVesselPhotoManager extends PhotoManager
 {
-
-   /**
-    *
-    */
+    protected static final PhotoManager instance = new SailingVesselPhotoManager();
+    
+    /**
+     *
+     */
     public SailingVesselPhotoManager()
     {
-    	photoTagCollector = SailingVesselPhotoFactory.getInstance().createPhotoTagCollector();
+        photoTagCollector = SailingVesselPhotoFactory.getInstance().createPhotoTagCollector();
     }
+    
+    /**
+	  *
+	  */
+     @Override
+	 public static final PhotoManager getInstance()
+    {
+		 return this.instance;
+    }
+    
+    /**
+	  *
+	  */
+    @Override 
+	 public final Photo getPhoto(PhotoId id)
+    {
+		return this.instance.getPhotoFromId(id);
+    }
+    
+    /**
+	  *
+	  */
+    @Override
+	 public Photo getPhotoFromId(PhotoId id)
+    {
+	     if (id == null)
+        {
+		      return null;
+		  }
+        
+        Photo result = doGetPhotoFromId(id);
+        
+        if (result == null)
+        {
+            result = SailingVesselPhotoFactory.getInstance().loadPhoto(id);
+            if (result != null)
+            {
+				    doAddPhoto(result);
+			   }
+		  }
+        
+        return result;
+    }
+
 }
