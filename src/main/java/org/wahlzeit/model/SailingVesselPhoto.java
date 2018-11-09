@@ -31,10 +31,17 @@
 public class SailingVesselPhoto extends Photo
 {
 
+    /* Brainstorming:
+       - type
+       - length
+       - year of build
+       - home haven
+       ...
+     */
 
-	  /**
-	   * @methodtype constructor
-	   */
+    /**
+     * @methodtype constructor
+     */
     public SailingVesselPhoto()
     {
         
