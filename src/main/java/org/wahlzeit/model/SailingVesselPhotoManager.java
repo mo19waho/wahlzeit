@@ -24,46 +24,23 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+package org.wahlzeit.model;
+
+/**
+ * 
+ */
 public class SailingVesselPhotoManager extends PhotoManager
 {
-    protected static final PhotoManager instance = new SailingVesselPhotoManager();
-    
-    /**
-     *
-     */
-    public SailingVesselPhotoManager()
-    {
-        photoTagCollector = SailingVesselPhotoFactory.getInstance().createPhotoTagCollector();
-    }
-    
-    /**
-	  *
-	  */
-     @Override
-	 public static final PhotoManager getInstance()
-    {
-		 return this.instance;
-    }
-    
-    /**
-	  *
-	  */
-    @Override 
-	 public final Photo getPhoto(PhotoId id)
-    {
-		return this.instance.getPhotoFromId(id);
-    }
-    
-    /**
-	  *
-	  */
+	/**
+	 *
+	 */
     @Override
-	 public Photo getPhotoFromId(PhotoId id)
+	public Photo getPhotoFromId(PhotoId id)
     {
-	     if (id == null)
+	    if (id == null)
         {
-		      return null;
-		  }
+	    	return null;
+		}
         
         Photo result = doGetPhotoFromId(id);
         
@@ -72,11 +49,10 @@ public class SailingVesselPhotoManager extends PhotoManager
             result = SailingVesselPhotoFactory.getInstance().loadPhoto(id);
             if (result != null)
             {
-				    doAddPhoto(result);
-			   }
-		  }
+                doAddPhoto(result);
+			}
+		}
         
         return result;
     }
-
 }

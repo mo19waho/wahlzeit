@@ -24,34 +24,66 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+package org.wahlzeit.model;
+
 /**
- *
+ * Representation of a sailing vessel.
  */
  public class SailingVessel
  {
-     private SailingVesselType type;
+	 /**
+	  * private variables: attributes of the represented sailing vessel
+	  */
+     private String type;
      private double length;
-     private Port portOfRegistry;
+     private String portOfRegistry;
      private int constructionYear;
      
-     /*
-      *
-      */
-     public SailingVessel()
-     {
-     
-     }
-     
      /**
-      *
+      * @methodtype constructor
+      * 
+      * @param sailingVesselType  the type of sailing vessel
+      * @param len                the length of the ship
+      * @param portOfReg          the port of reqistry
+      * @param constYear          the year of construction
       */
-     public SailingVessel(SailingVesselType typ, double len, Port portOfReg, int constYear)
+     public SailingVessel(String sailingVesselType, double len, String portOfReg, int constYear)
      {
-         type             = typ;
+         type             = sailingVesselType;
          length           = len;
          portOfRegistry   = portOfReg;
          constructionYear = constYear;
      }
-
      
+     /**
+      * Get the type of the represented sailing vessel if available.
+      */
+     public String getType()
+     {
+     	return type;
+     }
+     
+     /**
+      * Get the length of the represented sailing vessel if available.
+      */
+     public double getLength()
+     {
+     	return length;
+     }
+     
+     /**
+      * Get the port of reqistry of the represented sailing vessel if available.
+      */
+     public String getPortOfReqistry()
+     {
+     	return portOfRegistry;
+     }
+     
+     /**
+      * Get the construction year of the represented sailing vessel if available.
+      */
+     public int getConstructionYear()
+     {
+     	return constructionYear;
+     }
  }

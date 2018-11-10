@@ -24,40 +24,49 @@
  * <http://www.gnu.org/licenses/>.
  */
  
+package org.wahlzeit.model;
+
+import org.wahlzeit.services.LogBuilder;
+import java.util.logging.Logger;
 
 /**
  * An Abstract Factory for creating sailint vessel photos and related objects.
  */
 public class SailingVesselPhotoFactory extends PhotoFactory
 {
-    /**
-     * Public singleton access method
-     */
-    public static synchronized SailingVesselPhotoFactory getInstance()
-    {
-		      if (instance == null)
-        {
-            log.config(LogBuilder.createSystemMessage().addAction("setting generic PhotoFactory").toString());
-		          super.setInstance(new SailingVesselPhotoFactory());
-        }
-        return super.instance;
-    }
-      
+	private static final Logger log = Logger.getLogger(SailingVesselPhotoFactory.class.getName());
+	private static SailingVesselPhotoFactory instance = null;
+	
+	/**
+	 * Public singleton access method.
+	 */
+	public static synchronized SailingVesselPhotoFactory getInstance()
+	{
+		if (instance == null)
+		{
+			log.config(LogBuilder.createSystemMessage().addAction("setting generic PhotoFactory").toString());
+			//setInstance(new SailingVesselPhotoFactory());
+		    instance = new SailingVesselPhotoFactory();
+		}
+
+		return instance;
+	}
+	
     /**
      * @methodtype factory
      */
-     @Override
-     public Photo createPhoto()
-     {
-         return new SailingVesselPhoto();
-	    }
+    @Override
+    public SailingVesselPhoto createPhoto()
+    {
+        return new SailingVesselPhoto();
+	}
 
-     /**
-      * Creates a new sailing vessel photo with the specified id
-      */
-     @Override
-	    public Photo createPhoto(PhotoId id)
-     {
-		        return new SailingVesselPhoto(id);
-     }
+    /**
+     * Creates a new sailing vessel photo with the specified id
+     */
+    @Override
+	public SailingVesselPhoto createPhoto(PhotoId id)
+    {
+        return new SailingVesselPhoto(id);
+    }
 }

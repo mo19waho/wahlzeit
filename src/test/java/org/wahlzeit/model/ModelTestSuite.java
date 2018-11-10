@@ -10,6 +10,7 @@ import org.junit.runners.*;
     org.wahlzeit.model.GenderTest.class,
     org.wahlzeit.model.GuestTest.class,
     org.wahlzeit.model.LocationTest.class,
+    org.wahlzeit.model.SailingVesselPhotoTest.class,
     org.wahlzeit.model.PhotoFilterTest.class,
     org.wahlzeit.model.TagsTest.class,
     org.wahlzeit.model.UserStatusTest.class,
