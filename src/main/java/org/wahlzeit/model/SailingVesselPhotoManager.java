@@ -26,11 +26,33 @@
 
 package org.wahlzeit.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * 
  */
 public class SailingVesselPhotoManager extends PhotoManager
 {
+	protected static final SailingVesselPhotoManager instance = new SailingVesselPhotoManager();
+	
+	/**
+	 * 
+	 */
+	public SailingVesselPhotoManager()
+	{
+		photoTagCollector = SailingVesselPhotoFactory.getInstance().createPhotoTagCollector();
+    }
+	
+	/**
+	 * 
+	 */
+	public static final SailingVesselPhotoManager getSailingVesselPhotoManagerInstance()
+	{
+		return instance;
+	}
+	
+	
 	/**
 	 *
 	 */

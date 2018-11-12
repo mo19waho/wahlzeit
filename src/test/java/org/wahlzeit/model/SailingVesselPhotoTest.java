@@ -27,6 +27,9 @@ package org.wahlzeit.model;
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.io.IOException;
+import com.google.appengine.api.images.Image;
+import com.google.appengine.api.images.ImagesServiceFactory;
 
 /**
  * Test cases for SailingVesselPhoto class and related.
@@ -36,12 +39,17 @@ public class SailingVesselPhotoTest
 	@Test
 	public void testSailingVesselPhotoFactory()
 	{
+		//
 		String type = "Korvette";
 		double length = 12.50;
 		String portOfReqistry = "Kiel";
 		int constructionYear = 1994;
+		
+		//
 		SailingVesselPhotoFactory.initialize();
 		SailingVesselPhoto sailingVesselPhoto = SailingVesselPhotoFactory.getInstance().createPhoto();
+		
+		//
 		sailingVesselPhoto.setDepictedSailingVesselInformation(type, length, portOfReqistry, constructionYear);
 		
 		assertTrue(sailingVesselPhoto.getSailingVesselType().equals(type));

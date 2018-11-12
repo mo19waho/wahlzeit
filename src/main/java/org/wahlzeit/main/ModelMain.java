@@ -68,10 +68,12 @@ public abstract class ModelMain extends AbstractMain {
 		UserManager.getInstance().init();
 
 		log.config(LogBuilder.createSystemMessage().addAction("init PhotoFactory").toString());
-		SailingVesselPhotoFactory.initialize();
+		PhotoFactory.initialize();
+		//SailingVesselPhotoFactory.initialize();
 
 		log.config(LogBuilder.createSystemMessage().addAction("load Photos").toString());
-		SailingVesselPhotoManager.getInstance().init();
+		PhotoManager.getInstance().init();
+		//SailingVesselPhotoManager.getSailingVesselPhotoManagerInstance().init();
 	}
 
 
@@ -89,7 +91,8 @@ public abstract class ModelMain extends AbstractMain {
 	 */
 	public void saveAll() throws IOException{
 		PhotoCaseManager.getInstance().savePhotoCases();
-		SailingVesselPhotoManager.getInstance().savePhotos();
+		//SailingVesselPhotoManager.getSailingVesselPhotoManagerInstance().savePhotos();
+		PhotoManager.getInstance().savePhotos();
 		UserManager.getInstance().saveClients();
 		GlobalsManager.getInstance().saveGlobals();
 	}
@@ -101,7 +104,8 @@ public abstract class ModelMain extends AbstractMain {
 		UserManager userManager = UserManager.getInstance();
 		User user = new User(userId, nickName, emailAddress);
 
-		PhotoManager photoManager = SailingVesselPhotoManager.getInstance();
+		//SailingVesselPhotoManager photoManager = SailingVesselPhotoManager.getSailingVesselPhotoManagerInstance();
+		PhotoManager photoManager = PhotoManager.getInstance();
 		File photoDirFile = new File(photoDir);
 		FileFilter photoFileFilter = file -> file.getName().endsWith(".jpg");
 		File[] photoFiles = photoDirFile.listFiles(photoFileFilter);
