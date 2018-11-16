@@ -77,25 +77,18 @@ public class CartesianCoordinate implements Coordinate
 	 */
         public CartesianCoordinate asCartesianCoordinate()
 	{
-	    return this;
-	}
-
-	/**
-	 * Compute distance to a given CartesianCoordinate.
-	 * @param otherCoord
-	 */
-	public double getDistance(CartesianCoordinate otherCoord)
-	{
-	    return Math.sqrt( Math.pow(x - otherCoord.getX(), 2) + Math.pow(y - otherCoord.getY(), 2) + Math.pow(z - otherCoord.getZ(), 2));
+		return this;
 	}
 	
 	/**
 	 * Compute cartesian distance to a given Coordinate.
 	 * @param otherCoord
 	 */
-        private double getCartesianDistance(Coordinate otherCoord)
+        private double getCartesianDistance(Coordinate other)
 	{
-	    return getDistance(otherCoord.asCartesianCoordinate());
+		CartesianCoordinate otherCoord = other.asCartesianCoordinate());
+
+		return Math.sqrt( Math.pow(x - otherCoord.getX(), 2) + Math.pow(y - otherCoord.getY(), 2) + Math.pow(z - otherCoord.getZ(), 2));
 	}
 	
 	/**
@@ -103,9 +96,9 @@ public class CartesianCoordinate implements Coordinate
 	 */
 	public SphericCoordinate asSphericCoordinate()
 	{
-            double radius = Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-            double theta  = Math.acos(Math.toRadians(z/radius));
-            double phi    = Math.atan(Math.toRadians(y/x));
+        	double radius = Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        	double theta  = Math.acos(Math.toRadians(z/radius));
+        	double phi    = Math.atan(Math.toRadians(y/x));
 	}
 	
         /**
@@ -113,13 +106,13 @@ public class CartesianCoordinate implements Coordinate
 	 */
 	public double getCentralAngel(Coordinate otherCoord)
 	{
-	    SphericCoordinate coord1 = this.asSphericCoordinate();
-            double theta = coord1.getTheta();
-            SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
-            double theta2 = coord2.getTheta();
-	    double deltaPhi = coord2.getPhi()-coord1.getPhi();
+		SphericCoordinate coord1 = this.asSphericCoordinate();
+        	double theta = coord1.getTheta();
+        	SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
+        	double theta2 = coord2.getTheta();
+		double deltaPhi = coord2.getPhi()-coord1.getPhi();
 
-	    return Math.atan(Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta)*Math.sin(theta2) - Math.sin(theta)*Math.cos(theta2)*Math.cos(deltaPhi), 2))/(Math.sin(theta)*Math.sin(theta2)+Math.cos(theta)*Math.cos(theta2)*Math.cos(deltaPhi)));
+		return Math.atan(Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta)*Math.sin(theta2) - Math.sin(theta)*Math.cos(theta2)*Math.cos(deltaPhi), 2))/(Math.sin(theta)*Math.sin(theta2)+Math.cos(theta)*Math.cos(theta2)*Math.cos(deltaPhi)));
 	}
 	
 	/**
