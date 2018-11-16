@@ -35,7 +35,7 @@ public interface Coordinate
 
   /* methods to be implemented by Coordinate instance */
   public CartesianCoordinate asCartesianCoordinate();
-  public double getCartesianDistance();
+  public double getCartesianDistance(Coordinate);
   public SphericCoordinate asSphericCoordinate();
   public double getCentralAngel(Coordinate);
   public boolean isEqual(Coordinate);
