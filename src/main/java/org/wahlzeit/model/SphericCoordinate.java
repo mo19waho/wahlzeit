@@ -72,7 +72,7 @@ public class SphericCoordinate implements Coordinate
 		return radius;
 	}
 	
-  /**
+        /**
 	 * Receive this Coordinate represented as CartesianCoordinate.
 	 */
         public CartesianCoordinate asCartesianCoordinate()
@@ -80,22 +80,17 @@ public class SphericCoordinate implements Coordinate
 	    TODO
 	}
 
-	/**
-	 * Compute distance to a given CartesianCoordinate.
-	 * @param otherCoord
-	 */
-	public double getDistance(CartesianCoordinate otherCoord)
-	{
-	    return Math.sqrt( Math.pow(x - otherCoord.getX(), 2) + Math.pow(y - otherCoord.getY(), 2) + Math.pow(z - otherCoord.getZ(), 2));
-	}
-	
-	/**
+        /**
 	 * Compute cartesian distance to a given Coordinate.
 	 * @param otherCoord
 	 */
-  private double getCartesianDistance(Coordinate otherCoord)
+        private double getCartesianDistance(Coordinate other)
 	{
-	    return getDistance(otherCoord.asCartesianCoordinate());
+            CartesianCoordinate coord      =  this.asCartesianCoordinate();
+            CartesianCoordinate otherCoord = other.asCartesianCoordinate();
+            return Math.sqrt( Math.pow(coord.getX() - otherCoord.getX(), 2)
+                            + Math.pow(coord.getY() - otherCoord.getY(), 2)
+                            + Math.pow(coord.getZ() - otherCoord.getZ(), 2));
 	}
 	
 	/**
@@ -103,16 +98,16 @@ public class SphericCoordinate implements Coordinate
 	 */
 	public SphericCoordinate asSphericCoordinate()
 	{
-    return this;
+            return this;
 	}
 	
-  /**
+        /**
 	 * Receive the central angle this Coordinate represented as SpericCoordinate.
 	 */
 	public double getCentralAngel(Coordinate otherCoord)
 	{
-      SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
-      double theta2 = coord2.getTheta();
+            SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
+            double theta2 = coord2.getTheta();
 	    double deltaPhi = coord2.getPhi()-phi;
 
 	    return Math.atan(Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta)*Math.sin(theta2) - Math.sin(theta)*Math.cos(theta2)*Math.cos(deltaPhi), 2))/(Math.sin(theta)*Math.sin(theta2)+Math.cos(theta)*Math.cos(theta2)*Math.cos(deltaPhi)));
