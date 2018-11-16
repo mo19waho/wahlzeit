@@ -1,5 +1,5 @@
 /*
- * Class Coordinate
+ * Class CartesianCoordinate
  *
  * Version 1.0
  *
@@ -28,7 +28,7 @@ package org.wahlzeit.model;
 /**
  * A Coordinate describes a position in space.
  */
-public class Coordinate
+public class CartesianCoordinate implements Coordinate
 {
 	/**
 	 * Private variables: coordinates.
@@ -41,7 +41,7 @@ public class Coordinate
 	 * Public constructor to create a new Coordinate.
 	 * @param a, b, c with a = x, b = y, and c = z coordinate.
 	 */
-	public Coordinate(double a, double b, double c)
+	public CartesianCoordinateCoordinate(double a, double b, double c)
 	{
 		x = a;
 		y = b;
