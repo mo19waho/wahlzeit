@@ -114,12 +114,12 @@ public class CartesianCoordinate implements Coordinate
 	public double getCentralAngel(Coordinate otherCoord)
 	{
 	    SphericCoordinate coord1 = this.asSphericCoordinate();
-            double theta1 = coord1.getTheta();
+            double theta = coord1.getTheta();
             SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
             double theta2 = coord2.getTheta();
 	    double deltaPhi = coord2.getPhi()-coord1.getPhi();
 
-	    return Math.atan(Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta1)*Math.sin(theta2) - Math.sin(theta1)*Math.cos(theta2)*Math.cos(deltaPhi), 2))/(Math.sin(theta1)*Math.sin(theta2)+Math.cos(theta1)*Math.cos(theta2)*Math.cos(deltaPhi)));
+	    return Math.atan(Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta)*Math.sin(theta2) - Math.sin(theta)*Math.cos(theta2)*Math.cos(deltaPhi), 2))/(Math.sin(theta)*Math.sin(theta2)+Math.cos(theta)*Math.cos(theta2)*Math.cos(deltaPhi)));
 	}
 	
 	/**
