@@ -99,6 +99,8 @@ public class CartesianCoordinate implements Coordinate
         	double radius = Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
         	double theta  = Math.acos(Math.toRadians(z/radius));
         	double phi    = Math.atan(Math.toRadians(y/x));
+		
+                return new SphericCoordinate(phi, theta, radius);
 	}
 	
         /**
