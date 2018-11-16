@@ -3,7 +3,7 @@
  *
  * Version 1.0
  *
- * 10-27-2018
+ * 11-16-2018
  *
  * Copyright (c) 2018 Lukas Batz
  *
@@ -26,7 +26,7 @@
 package org.wahlzeit.model;
 
 /**
- * A Coordinate describes a position in space.
+ * A CartesianCoordinate describes a position in space as cartesian coordinate.
  */
 public class CartesianCoordinate implements Coordinate
 {
@@ -71,30 +71,58 @@ public class CartesianCoordinate implements Coordinate
 	{
 		return z;
 	}
-  
+	
+        /**
+	 * Receive this Coordinate represented as CartesianCoordinate.
+	 */
+        public CartesianCoordinate asCartesianCoordinate()
+	{
+	    return this;
+	}
+
 	/**
-	 * Compute distance to a given Coordinate.
+	 * Compute distance to a given CartesianCoordinate.
 	 * @param otherCoord
 	 */
-	double getDistance(Coordinate otherCoord)
+	public double getDistance(CartesianCoordinate otherCoord)
 	{
-		return Math.sqrt( Math.pow(x - otherCoord.getX(), 2) + Math.pow(y - otherCoord.getY(), 2) + Math.pow(z - otherCoord.getZ(), 2));
+	    return Math.sqrt( Math.pow(x - otherCoord.getX(), 2) + Math.pow(y - otherCoord.getY(), 2) + Math.pow(z - otherCoord.getZ(), 2));
 	}
-  
+	
+	/**
+	 * Compute cartesian distance to a given Coordinate.
+	 * @param otherCoord
+	 */
+        private double getCartesianDistance(Coordinate otherCoord)
+	{
+	    return getDistance(otherCoord.asCartesianCoordinate());
+	}
+	
+	/**
+	 * Receive this Coordinate represented as SpericCoordinate.
+	 */
+	public SphericCoordinate asSphericCoordinate()
+	{
+            double radius = Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+            double theta  = Math.acos(Math.toRadians(z/radius));
+            double phi    = Math.atan(Math.toRadians(y/x));
+	}
+	
 	/**
 	 * Determine whether this and a given coordinate equal.
 	 * @param otherCoord
 	 */
-	boolean isEqual(Coordinate otherCoord)
+	public boolean isEqual(Coordinate otherCoord)
 	{
 		if(otherCoord == null)
 		{
 			return false;
 		}
+		CartesianCoordinate otherCoordAsCartesian = otherCoord.asCartesianCoordinate();
 		// check for equality in x, y and z coordinate
-		if( (x == otherCoord.getX()) && 
-			(y == otherCoord.getY()) &&
-			(z == otherCoord.getZ()) )
+		if( (x == otherCoordAsCartesian.getX()) && 
+		    (y == otherCoordAsCartesian.getY()) &&
+		    (z == otherCoordAsCartesian.getZ()) )
 		{
 			return true;
 		}
