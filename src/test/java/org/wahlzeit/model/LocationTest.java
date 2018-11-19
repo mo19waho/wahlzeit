@@ -47,7 +47,7 @@ public class LocationTest
 		double x = 1.3;
 		double y = 6.0;
 		double z = 0.13;
-		Coordinate coord = new CartesianCoordinate(x, y, z);
+		CartesianCoordinate coord = new CartesianCoordinate(x, y, z);
 		
 		assertEquals(coord.getX(), x,  delta);
 		assertEquals(coord.getY(), y,  delta);
@@ -63,7 +63,7 @@ public class LocationTest
 		double p = 1.3;
 		double t = 6.0;
 		double r = 0.13;
-		Coordinate coord = new SphericCoordinate(p, t, r);
+		SphericCoordinate coord = new SphericCoordinate(p, t, r);
 		
 		assertEquals(coord.getPhi(), p,  delta);
 		assertEquals(coord.getTheta(), t,  delta);
@@ -76,7 +76,12 @@ public class LocationTest
 	@Test
 	public void testCartesianCoordinateasAsCartesianCoordinate()
 	{
-		// TODO
+		CartesianCoordinate coord  = new CartesianCoordinate(1.0, 7.0, 28.0);
+		CartesianCoordinate test   = coord.asCartesianCoordinate();
+		
+		assertEquals(coord.getX(), test.getX(), delta);
+		assertEquals(coord.getY(), test.getY(), delta);
+		assertEquals(coord.getZ(), test.getZ(), delta);
 	}
 	
 	/**
@@ -85,7 +90,26 @@ public class LocationTest
 	@Test
 	public void testSphericCoordinateasAsCartesianCoordinate()
 	{
-		// TODO
+		
+		SphericCoordinate coord  = new SphericCoordinate(8.1, 11.1, 7.3);
+		CartesianCoordinate cart = coord.asCartesianCoordinate();
+		assertEquals(cart.getX(), 1.00933702, delta);
+		assertEquals(cart.getY(), 0.1980240505, delta);
+		assertEquals(cart.getZ(), 7.227172701, delta);
+		
+		SphericCoordinate coord2  = new SphericCoordinate(60.0, 45.0, 30.0);
+		CartesianCoordinate cart2 = coord2.asCartesianCoordinate();
+		
+		assertEquals(cart2.getX(), 18.37117307, 0.1);
+		assertEquals(cart2.getY(), 18.37117307, 0.1);
+		assertEquals(cart2.getZ(), 15.0, 0.1);
+		
+		SphericCoordinate test = cart2.asSphericCoordinate();
+		
+		assertEquals(test.getRadius(), 30.0, delta);
+		assertEquals(test.getTheta(), 45.0, delta);
+		assertEquals(test.getPhi(), 60.0, delta);
+		
 	}
 	
 		/**
@@ -94,7 +118,23 @@ public class LocationTest
 	@Test
 	public void testCartesianCoordinateasAsSphericCoordinate()
 	{
-		// TODO
+		CartesianCoordinate coord = new CartesianCoordinate(1.3, 6.0, 10);
+	    SphericCoordinate spheric = coord.asSphericCoordinate();
+        assertEquals(spheric.getRadius(), 11.734138229968, delta);
+        assertEquals(spheric.getTheta(), 77.774877324264, delta);
+        assertEquals(spheric.getPhi(), 31.546671835855, delta);
+        
+		CartesianCoordinate coord2 = new CartesianCoordinate(10, 3, 8);
+	    SphericCoordinate spheric2 = coord2.asSphericCoordinate();
+        assertEquals(spheric2.getRadius(), 13.152946437966, delta);
+        assertEquals(spheric2.getTheta(), 16.699244233994, delta);
+        assertEquals(spheric2.getPhi(), 52.538460979869, delta);
+        
+	    
+		CartesianCoordinate cartesian = spheric.asCartesianCoordinate();
+		assertEquals(coord.getX(), cartesian.getX(),  delta);
+		assertEquals(coord.getY(), cartesian.getY(),  delta);
+		assertEquals(coord.getZ(), cartesian.getZ(), delta);
 	}
 	
 	/**
@@ -103,7 +143,12 @@ public class LocationTest
 	@Test
 	public void testSphericCoordinateasAsSphericCoordinate()
 	{
-		// TODO
+		SphericCoordinate coord  = new SphericCoordinate(1.0, 7.0, 28.0);
+		SphericCoordinate test   = coord.asSphericCoordinate();
+		
+		assertEquals(coord.getPhi(), test.getPhi(), delta);
+		assertEquals(coord.getTheta(), test.getTheta(), delta);
+		assertEquals(coord.getRadius(), test.getRadius(), delta);
 	}
 		
 	/**
@@ -147,7 +192,7 @@ public class LocationTest
 		assertTrue(coord0.isEqual(coord0.asCartesianCoordinate()));
 		assertTrue(coord0.isEqual(coord2.asCartesianCoordinate()));
 		assertTrue(coord2.isEqual(coord0.asCartesianCoordinate()));
-	    	// cases where no equality is expected
+		// cases where no equality is expected
 		assertFalse(coord0.isEqual(coord1.asCartesianCoordinate()));
 		assertFalse(coord1.isEqual(coord0.asCartesianCoordinate()));
 		assertFalse(coord0.isEqual(coord1));
@@ -213,18 +258,22 @@ public class LocationTest
 	@Test
 	public void testCartesianCoordinateGetCartesianDistance()
 	{
+
 		Coordinate coord0 = new CartesianCoordinate(0.0, 0.0, 0.0);
 		Coordinate coord1 = new CartesianCoordinate(-8.0, 11.0, 0.0);
 		Coordinate coord2 = new CartesianCoordinate(0.1, 0.2, 0.3);
 		Coordinate coord3 = new CartesianCoordinate(1.0, 5.0, 7.0);
-		
-                // TODO: cross functionality
+		Coordinate coordSpheric = new SphericCoordinate(3.0, 4.0, 5.0);
+
 		assertEquals(coord0.getCartesianDistance(coord0), 0.0, delta);
 		assertEquals(coord0.getCartesianDistance(coord1),  13.601470508735444, delta);
 		assertEquals(coord0.getCartesianDistance(coord2),  0.37416573867739417, delta);
-		assertEquals(coord0.getCartesianDistance(coord3),   8.660254037844387, 0.1);
+		assertEquals(coord0.getCartesianDistance(coord3),   8.660254037844387, delta);
 		assertEquals(coord3.getCartesianDistance(coord3), 0.0, delta);
-		assertEquals(coord3.getCartesianDistance(coord2),   8.290958931269651, 0.1);
+		assertEquals(coord3.getCartesianDistance(coord2),   8.290958931269651, delta);
+		// test with spheric class
+		assertEquals(coord0.getCartesianDistance(coordSpheric), 5.0, delta);
+
 	}
 	
 	/**
@@ -234,33 +283,30 @@ public class LocationTest
 	public void testSphericCoordinateGetCartesianDistance()
 	{
 		Coordinate coord0 = new SphericCoordinate(0.0, 0.0, 0.0);
-		Coordinate coord1 = new SphericCoordinate(-8.0, 11.0, 0.0);
-		Coordinate coord2 = new SphericCoordinate(0.1, 0.2, 0.3);
-		Coordinate coord3 = new SphericCoordinate(1.0, 5.0, 7.0);
+		Coordinate coord1 = new SphericCoordinate(52.538460979869, 16.699244233994, 13.152946437966);
+		Coordinate coord2 = new SphericCoordinate(3.0, 4.0, 5.0);
+		Coordinate coordCart = new CartesianCoordinate(0.0, 0.0, 0.0);
 		
-                // TODO: values, results anpassen
 		assertEquals(coord0.getCartesianDistance(coord0), 0.0, delta);
-		assertEquals(coord0.getCartesianDistance(coord1),  13.601470508735444, delta);
-		assertEquals(coord0.getCartesianDistance(coord2),  0.37416573867739417, delta);
-		assertEquals(coord0.getCartesianDistance(coord3),   8.660254037844387, 0.1);
-		assertEquals(coord3.getCartesianDistance(coord3), 0.0, delta);
-		assertEquals(coord3.getCartesianDistance(coord2),   8.290958931269651, 0.1);
+		assertEquals(coord0.getCartesianDistance(coord1), 13.152946, delta);
+		assertEquals(coord2.getCartesianDistance(coord0), 5.0, delta);
+		assertEquals(coord2.getCartesianDistance(coordCart), 5.0, delta);
 	}
 	
 	/**
-	 * Test getCentralAngel functionality of CartesianCoordinat class.
+	 * Test getCentralAngle functionality of CartesianCoordinat class.
 	 */
 	@Test
-	public void testCartesianCoordinateGetCentralAngel()
+	public void testCartesianCoordinateGetCentralAngle()
 	{
 		// TODO
 	}
 	
 	/**
-	 * Test getCentralAngel functionality of SphericCoordinat class.
+	 * Test getCentralAngle functionality of SphericCoordinat class.
 	 */
 	@Test
-	public void testSphericCoordinateGetCentralAngel()
+	public void testSphericCoordinateGetCentralAngle()
 	{
 		// TODO
 	}
@@ -287,7 +333,7 @@ public class LocationTest
 		double y = 1.17;
 		double z = 13.4;
 		Location loc = new Location(x, y, z);
-		Coordinate coord = loc.coordinate;
+		CartesianCoordinate coord = loc.coordinate;
 		
 		assertEquals(coord.getX(), x, delta);
 		assertEquals(coord.getY(), y, delta);

@@ -41,7 +41,7 @@ public class CartesianCoordinate implements Coordinate
 	 * Public constructor to create a new Coordinate.
 	 * @param a, b, c with a = x, b = y, and c = z coordinate.
 	 */
-	public CartesianCoordinateCoordinate(double a, double b, double c)
+	public CartesianCoordinate(double a, double b, double c)
 	{
 		x = a;
 		y = b;
@@ -72,21 +72,21 @@ public class CartesianCoordinate implements Coordinate
 		return z;
 	}
 	
-        /**
+	/**
 	 * Receive this Coordinate represented as CartesianCoordinate.
 	 */
-        public CartesianCoordinate asCartesianCoordinate()
+	public CartesianCoordinate asCartesianCoordinate()
 	{
 		return this;
 	}
 	
 	/**
 	 * Compute cartesian distance to a given Coordinate.
-	 * @param otherCoord
-	 */
-        private double getCartesianDistance(Coordinate other)
+     * @param otherCoord
+     */
+	public double getCartesianDistance(Coordinate other)
 	{
-		CartesianCoordinate otherCoord = other.asCartesianCoordinate());
+		CartesianCoordinate otherCoord = other.asCartesianCoordinate();
 
 		return Math.sqrt( Math.pow(x - otherCoord.getX(), 2) + Math.pow(y - otherCoord.getY(), 2) + Math.pow(z - otherCoord.getZ(), 2));
 	}
@@ -96,23 +96,24 @@ public class CartesianCoordinate implements Coordinate
 	 */
 	public SphericCoordinate asSphericCoordinate()
 	{
-        	double radius = Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-        	double theta  = Math.acos(Math.toRadians(z/radius));
-        	double phi    = Math.atan(Math.toRadians(y/x));
-		
-                return new SphericCoordinate(phi, theta, radius);
+		// transformation cartesian to shperical
+	    double radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+		double theta  = Math.toDegrees(Math.atan2(y, x));     
+		double phi    = Math.toDegrees(Math.acos(z/radius));//removed toDegrees() ??
+
+		return new SphericCoordinate(phi, theta, radius);
 	}
 	
-        /**
+    /**
 	 * Receive the central angle this Coordinate represented as SpericCoordinate.
 	 */
-	public double getCentralAngel(Coordinate otherCoord)
+	public double getCentralAngle(Coordinate otherCoord)
 	{
 		SphericCoordinate coord1 = this.asSphericCoordinate();
-        	double theta = coord1.getTheta();
-        	SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
-        	double theta2 = coord2.getTheta();
-		double deltaPhi = coord2.getPhi()-coord1.getPhi();
+		double theta = Math.toRadians(coord1.getTheta());
+		SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
+		double theta2 = Math.toRadians(coord2.getTheta());
+		double deltaPhi = Math.toRadians(coord2.getPhi()-coord1.getPhi());
 
 		return Math.atan(Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta)*Math.sin(theta2) - Math.sin(theta)*Math.cos(theta2)*Math.cos(deltaPhi), 2))/(Math.sin(theta)*Math.sin(theta2)+Math.cos(theta)*Math.cos(theta2)*Math.cos(deltaPhi)));
 	}
@@ -129,9 +130,9 @@ public class CartesianCoordinate implements Coordinate
 		}
 		CartesianCoordinate otherCoordAsCartesian = otherCoord.asCartesianCoordinate();
 		// check for equality in x, y and z coordinate
-		if( (x == otherCoordAsCartesian.getX()) && 
-		    (y == otherCoordAsCartesian.getY()) &&
-		    (z == otherCoordAsCartesian.getZ()) )
+		if( coordinateEqual(x, otherCoordAsCartesian.getX()) && 
+			coordinateEqual(y, otherCoordAsCartesian.getY()) &&
+			coordinateEqual(z, otherCoordAsCartesian.getZ()) )
 		{
 			return true;
 		}
@@ -159,5 +160,16 @@ public class CartesianCoordinate implements Coordinate
 		Coordinate otherCoord = (Coordinate) obj;
 		// forward to isEqual
 		return isEqual(otherCoord);
+	}
+	
+	/**
+	 * Helper method for comparison of double coordinate values.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean coordinateEqual(double x, double y)
+	{
+		return Math.abs(x - y) <= 0.000001;
 	}
 }

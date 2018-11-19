@@ -33,7 +33,7 @@ public class Location
 	/**
 	 * public variables: Reference to coordinate object.
 	 */
-    public Coordinate coordinate = null;
+    public CartesianCoordinate coordinate = null;
     
     /**
      * Creation of a new Location object and initialization with a Coordinate object.
@@ -41,7 +41,7 @@ public class Location
      */
     public Location(Coordinate coord)
     {
-        coordinate = coord;
+        coordinate = coord.asCartesianCoordinate();
     }
     /**
      * Creation of a new Location object and initialization with double coordinate values.
