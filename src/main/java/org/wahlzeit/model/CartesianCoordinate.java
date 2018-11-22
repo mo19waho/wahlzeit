@@ -118,7 +118,7 @@ public class CartesianCoordinate extends AbstractCoordinate
 		
 		double numerator   = Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta)*Math.sin(theta2) - Math.sin(theta)*Math.cos(theta2)*Math.cos(deltaPhi), 2));
 		double denominator = Math.sin(theta)*Math.sin(theta2)+Math.cos(theta)*Math.cos(theta2)*Math.cos(deltaPhi);
-		return Math.atan2(denominator, numerator);
+		return Math.toDegrees(Math.atan2(denominator, numerator));
 	}
 	
 	/**
