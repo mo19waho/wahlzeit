@@ -299,7 +299,12 @@ public class LocationTest
 	@Test
 	public void testCartesianCoordinateGetCentralAngle()
 	{
-		// TODO
+		// theta1 = 3 phi1 = 7 | theta2 = 6 phi2 = 1
+		Coordinate coord1 = new CartesianCoordinate(7.0, 3.0, 9.0);
+		Coordinate coord2 = new CartesianCoordinate(1.0, 6.0, 8.0);
+		assertEquals(coord1.getCentralAngle(coord2), 6.691, delta);
+		assertEquals(coord2.getCentralAngle(coord1), 6.691, delta);
+		// arctan(sqrt((cos(6 deg)*sin(abs(1-7) deg))^2 + (cos(3 deg)*sin(6 deg) - sin(3 deg)*cos(6 deg)*cos(abs(1-7) deg))^2)/(sin(3 deg)*sin(6 deg) + cos(3 deg)*cos(6 deg)*cos(abs(1-7) deg)))
 	}
 	
 	/**
