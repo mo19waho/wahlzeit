@@ -28,7 +28,7 @@ package org.wahlzeit.model;
 /**
  * A CartesianCoordinate describes a position in space as cartesian coordinate.
  */
-public class CartesianCoordinate implements Coordinate
+public class CartesianCoordinate extends AbstractCoordinate
 {
 	/**
 	 * Private variables: coordinates.
