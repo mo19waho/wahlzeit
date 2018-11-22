@@ -28,7 +28,7 @@ package org.wahlzeit.model;
 /**
  * A SphericCoordinate describes a position in space as spherical coordinate.
  */
-public class SphericCoordinate implements Coordinate
+public class SphericCoordinate extends AbstractCoordinate
 {
 	/**
 	 * Private variables: coordinates.
