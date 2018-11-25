@@ -110,15 +110,15 @@ public class CartesianCoordinate extends AbstractCoordinate
 	public double getCentralAngle(Coordinate otherCoord)
 	{	
 		SphericCoordinate coord1 = this.asSphericCoordinate();
+		
 		double theta = Math.toRadians(coord1.getTheta());
 		SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
 		double theta2 = Math.toRadians(coord2.getTheta());
-		double deltaPhi = Math.toRadians(coord2.getPhi()-coord1.getPhi());
-		
+		double deltaPhi = Math.toRadians(Math.abs(coord2.getPhi()-coord1.getPhi()));
 		
 		double numerator   = Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta)*Math.sin(theta2) - Math.sin(theta)*Math.cos(theta2)*Math.cos(deltaPhi), 2));
 		double denominator = Math.sin(theta)*Math.sin(theta2)+Math.cos(theta)*Math.cos(theta2)*Math.cos(deltaPhi);
-		return Math.toDegrees(Math.atan2(denominator, numerator));
+		return Math.atan2(numerator, denominator);
 	}
 	
 	/**

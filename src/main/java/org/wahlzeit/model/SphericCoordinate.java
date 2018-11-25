@@ -115,11 +115,14 @@ public class SphericCoordinate extends AbstractCoordinate
 	 */
 	public double getCentralAngle(Coordinate otherCoord)
 	{
+		double theta1 =   Math.toRadians(this.theta);
 		SphericCoordinate coord2 = otherCoord.asSphericCoordinate();
-		double theta2 = coord2.getTheta();
-		double deltaPhi = Math.abs(coord2.getPhi()-phi);
+		double theta2 =   Math.toRadians(coord2.getTheta());
+		double deltaPhi = Math.toRadians(Math.abs(coord2.getPhi()- this.phi));
 		
-		return Math.toDegrees(Math.atan2(Math.sqrt(Math.pow(Math.cos(Math.toRadians(theta2))*Math.sin(Math.toRadians(deltaPhi)), 2) + Math.pow(Math.cos(Math.toRadians(theta))*Math.sin(Math.toRadians(theta2)) - Math.sin(theta)*Math.cos(Math.toRadians(theta2))*Math.cos(Math.toRadians(deltaPhi)), 2)), (Math.sin(Math.toRadians(theta))*Math.sin(Math.toRadians(theta2))+Math.cos(Math.toRadians(theta))*Math.cos(Math.toRadians(theta2))*Math.cos(Math.toRadians(deltaPhi)))));
+		double numerator   = Math.sqrt(Math.pow(Math.cos(theta2)*Math.sin(deltaPhi), 2) + Math.pow(Math.cos(theta1)*Math.sin(theta2) - Math.sin(theta1)*Math.cos(theta2)*Math.cos(deltaPhi), 2));
+		double denominator = Math.sin(theta1)*Math.sin(theta2)+Math.cos(theta1)*Math.cos(theta2)*Math.cos(deltaPhi);
+		return Math.atan2(numerator, denominator);
 	}
 	
 	/**

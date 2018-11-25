@@ -299,12 +299,12 @@ public class LocationTest
 	@Test
 	public void testCartesianCoordinateGetCentralAngle()
 	{
-		// theta1 = 3 phi1 = 7 | theta2 = 6 phi2 = 1
-		Coordinate coord1 = new CartesianCoordinate(7.0, 3.0, 9.0);
-		Coordinate coord2 = new CartesianCoordinate(1.0, 6.0, 8.0);
-		assertEquals(coord1.getCentralAngle(coord2), 6.691, delta);
-		assertEquals(coord2.getCentralAngle(coord1), 6.691, delta);
-		// arctan(sqrt((cos(6 deg)*sin(abs(1-7) deg))^2 + (cos(3 deg)*sin(6 deg) - sin(3 deg)*cos(6 deg)*cos(abs(1-7) deg))^2)/(sin(3 deg)*sin(6 deg) + cos(3 deg)*cos(6 deg)*cos(abs(1-7) deg)))
+		// cartesian coordinates according to sphericCoordinateGetCentralAngel testcase
+		Coordinate coord1 = new CartesianCoordinate(1.0953209313497503, 0.05740333761427285, 8.932915364771898);
+		Coordinate coord2 = new CartesianCoordinate(0.1388544026299572, 0.014594185801693988, 7.99878156125113);
+		assertEquals(coord1.getCentralAngle(coord2), 0.11678047550, delta);
+		assertEquals(coord2.getCentralAngle(coord1), 0.11678047550, delta);
+
 	}
 	
 	/**
@@ -313,7 +313,13 @@ public class LocationTest
 	@Test
 	public void testSphericCoordinateGetCentralAngle()
 	{
-		// TODO
+		// theta1 = 3 phi1 = 7 | theta2 = 6 phi2 = 1
+		Coordinate coord1 = new SphericCoordinate(7.0, 3.0, 9.0);
+		Coordinate coord2 = new SphericCoordinate(1.0, 6.0, 8.0);
+		assertEquals(coord1.getCentralAngle(coord2), 0.11678047550, delta);
+		assertEquals(coord2.getCentralAngle(coord1), 0.11678047550, delta);
+		// wolfram alpha:
+		// arctan(sqrt((cos(6 deg)*sin(abs(1-7) deg))^2 + (cos(3 deg)*sin(6 deg) - sin(3 deg)*cos(6 deg)*cos(abs(1-7) deg))^2)/(sin(3 deg)*sin(6 deg) + cos(3 deg)*cos(6 deg)*cos(abs(1-7) deg)))
 	}
 	
 	/**
